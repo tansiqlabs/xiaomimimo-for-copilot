@@ -1,9 +1,9 @@
 <h1 align="center">Xiaomi MiMo for GitHub Copilot Chat</h1>
 
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=tansiqlabs.xiaomimimo-for-copilot"><img src="https://img.shields.io/badge/VS%20Code-Install%20Extension-blue?logo=visualstudiocode&style=for-the-badge" alt="Install in VS Code"></a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=tansiqlabs.xiaomimimo-for-copilot"><img src="https://vsmarketplacebadges.dev/version-short/tansiqlabs.xiaomimimo-for-copilot.svg?style=for-the-badge" alt="Version"></a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=tansiqlabs.xiaomimimo-for-copilot"><img src="https://vsmarketplacebadges.dev/installs-short/tansiqlabs.xiaomimimo-for-copilot.svg?style=for-the-badge" alt="Installs"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=tansiqlabs.tansiqlabs-xiaomimimo-for-copilot"><img src="https://img.shields.io/badge/VS%20Code-Install%20Extension-blue?logo=visualstudiocode&style=for-the-badge" alt="Install in VS Code"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=tansiqlabs.tansiqlabs-xiaomimimo-for-copilot"><img src="https://vsmarketplacebadges.dev/version-short/tansiqlabs.tansiqlabs-xiaomimimo-for-copilot.svg?style=for-the-badge" alt="Version"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=tansiqlabs.tansiqlabs-xiaomimimo-for-copilot"><img src="https://vsmarketplacebadges.dev/installs-short/tansiqlabs.tansiqlabs-xiaomimimo-for-copilot.svg?style=for-the-badge" alt="Installs"></a>
 </p>
 
 **Pick MiMo V2.5 Pro & V2.5 from the Copilot Chat model picker — with thinking mode, vision, and agent tools.**
@@ -72,7 +72,7 @@ Pure VS Code API + Node.js built-ins. No Python, no Docker, no local proxy serve
 
 ### Prerequisites
 
-- VS Code 1.116 or later. This extension relies on non-public Copilot Chat APIs that may break on newer VS Code versions — [report an issue](https://github.com/tansiqlabs/xiaomimimo-for-copilot/issues) if you hit one.
+- VS Code 1.120 or later. This extension relies on non-public Copilot Chat APIs that may break on newer VS Code versions — [report an issue](https://github.com/tansiqlabs/xiaomimimo-for-copilot/issues) if you hit one.
 - GitHub Copilot subscription (Free / Pro / Enterprise — the free tier works)
 - MiMo API key from [platform.xiaomimimo.com](https://platform.xiaomimimo.com/console/api-keys)
 
