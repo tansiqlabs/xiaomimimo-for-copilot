@@ -16,12 +16,7 @@ export interface ReasoningEntry {
 	timestamp: number;
 }
 
-export function pruneReasoningCache(cache: Map<string, ReasoningEntry>, clearAll: boolean): void {
-	if (clearAll) {
-		cache.clear();
-		return;
-	}
-
+export function pruneReasoningCache(cache: Map<string, ReasoningEntry>): void {
 	if (cache.size <= MAX_CACHE_SIZE) {
 		return;
 	}
