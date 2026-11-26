@@ -1,4 +1,6 @@
 const assert = require('node:assert/strict');
+const { readFileSync } = require('node:fs');
+const { resolve } = require('node:path');
 const { registerHooks } = require('node:module');
 const { test } = require('node:test');
 const manifest = require('../package.json');
@@ -188,4 +190,12 @@ test('provider streams text, includes images, and replays reasoning for tools', 
 	assert.equal(second[0].value, 'Fixture complete.');
 	assert.equal(requests.at(-1).messages[0].reasoning_content, 'tool reasoning');
 	assert.equal(requests.at(-1).messages[1].tool_call_id, 'call_fixture');
+});
+
+test('Marketplace icon is a 128-pixel PNG', () => {
+	const icon = readFileSync(resolve(__dirname, '..', manifest.icon));
+	assert.equal(icon.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
+	assert.equal(icon.toString('ascii', 12, 16), 'IHDR');
+	assert.equal(icon.readUInt32BE(16), 128);
+	assert.equal(icon.readUInt32BE(20), 128);
 });
