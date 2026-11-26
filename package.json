@@ -1,8 +1,8 @@
 {
   "name": "tansiqlabs-xiaomimimo-for-copilot",
   "displayName": "Xiaomi MiMo for Copilot Chat by Tansiq Labs",
-  "description": "Pick MiMo V2.5 Pro & V2.5 from the Copilot Chat model picker. Thinking mode, agent tools — zero config, BYOK.",
-  "version": "1.0.1",
+  "description": "Pick MiMo V2.6 Pro or V2.6 Flash in Copilot Chat with thinking, vision, and tool calling. Bring your own API key.",
+  "version": "1.1.0",
   "publisher": "tansiqlabs",
   "license": "MIT",
   "icon": "resources/icon.png",
@@ -141,20 +141,27 @@
         },
         "mimo-copilot.modelIdOverrides": {
           "type": "object",
-          "default": {
-            "mimo-v2.5-pro": "mimo-v2.5-pro",
-            "mimo-v2.5": "mimo-v2.5"
-          },
-          "description": "Override the API model ID sent for each MiMo model. Defaults are prefilled with official MiMo IDs; change them only when using a compatible third-party API that uses different model names.",
+          "default": {},
+          "description": "Override the API model ID for compatible third-party endpoints. Omitting an override uses the official Xiaomi ID.",
           "additionalProperties": false,
           "properties": {
+            "mimo-v2.6-pro": {
+              "type": "string",
+              "description": "Custom API model ID for MiMo V2.6 Pro"
+            },
+            "mimo-v2.6-flash": {
+              "type": "string",
+              "description": "Custom API model ID for MiMo V2.6 Flash"
+            },
             "mimo-v2.5-pro": {
               "type": "string",
-              "description": "API model ID for MiMo V2.5 Pro"
+              "description": "Legacy override for MiMo V2.6 Pro.",
+              "deprecationMessage": "Use mimo-v2.6-pro instead."
             },
             "mimo-v2.5": {
               "type": "string",
-              "description": "API model ID for MiMo V2.5"
+              "description": "Legacy override for MiMo V2.6 Flash.",
+              "deprecationMessage": "Use mimo-v2.6-flash instead."
             }
           }
         }
@@ -170,7 +177,8 @@
     "format:check": "oxfmt --check src/",
     "package": "vsce package -o dist/",
     "publish": "vsce publish",
-    "login": "vsce login tansiqlabs"
+    "login": "vsce login tansiqlabs",
+    "test": "npm run compile && node --test"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",

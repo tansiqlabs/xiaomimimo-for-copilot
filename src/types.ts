@@ -43,7 +43,7 @@ export interface MiMoRequest {
 	stream: boolean;
 	temperature?: number;
 	top_p?: number;
-	max_tokens?: number;
+	max_completion_tokens?: number;
 	tools?: MiMoTool[];
 	tool_choice?: 'none' | 'auto' | 'required';
 	stream_options?: {

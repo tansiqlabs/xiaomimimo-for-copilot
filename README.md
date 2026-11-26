@@ -6,47 +6,33 @@
   <a href="https://marketplace.visualstudio.com/items?itemName=tansiqlabs.tansiqlabs-xiaomimimo-for-copilot"><img src="https://vsmarketplacebadges.dev/installs-short/tansiqlabs.tansiqlabs-xiaomimimo-for-copilot.svg?style=for-the-badge" alt="Installs"></a>
 </p>
 
-**Pick MiMo V2.5 Pro & V2.5 from the Copilot Chat model picker — with thinking mode, vision, and agent tools.**
+**Pick MiMo V2.6 Pro and V2.6 Flash from the Copilot Chat model picker — with thinking mode, vision, and agent tools.**
 
-Love Xiaomi MiMo's reasoning capabilities but don't want to leave Copilot Chat? This extension drops **MiMo V2.5 Pro & V2.5** straight into the model selector — with **thinking mode**, **vision** (V2.5), **tool calling**, and your own API key.
+Love Xiaomi MiMo's reasoning capabilities but don't want to leave Copilot Chat? This extension drops **MiMo V2.6 Pro and V2.6 Flash** straight into the model selector — with **thinking mode**, **image input**, **tool calling**, and your own API key.
 
 ## Why this extension?
 
 - **Don't replace Copilot — power it up.** No new sidebar, no new chat UI to learn. Just new models in the picker you already use.
 - **Agent mode, tool calling, instructions, MCP, skills — all of it still works.** Copilot's entire stack, now running on MiMo.
-- **Prompt caching that actually works.** The extension sends `prompt_cache_hit_tokens` back to the API so MiMo can validate and continue its server-side cache — no warm-up waste, no surprise re-computation.
-- **Reasoning token tracking.** Every response logs `reasoning_effort` feedback and exact reasoning token counts so you can see how much thinking the model invested.
-- **MiMo V2.5 supports vision.** Drop screenshots, UI mockups, or diagrams into chat — V2.5 can see and understand them.
-- **MiMo V2.5 Pro excels at deep reasoning.** Complex refactors, multi-step debugging, algorithm design — tasks that need serious thinking.
+- **Prompt cache statistics.** See cache hits in the MiMo output channel when the API reports them.
+- **Reasoning token tracking.** The output channel logs reasoning token counts when reported by the API so you can see how much thinking the model invested.
+- **Both models accept images.** Attach screenshots, UI mockups, or diagrams to Copilot Chat.
+- **MiMo V2.6 Pro excels at deep reasoning.** Complex refactors, multi-step debugging, algorithm design — tasks that need serious thinking.
 - **BYOK, pay MiMo directly.** Your API key, your bill, your rate limits. Stored in the OS keychain, never on disk.
 
 ## Features
 
-### MiMo V2.5 Pro & V2.5 in the model picker
-Both models show up alongside GPT-4o, Claude, and friends in Copilot Chat's model selector. 917K token context on both. Switch models mid-chat without losing history.
+### MiMo V2.6 Pro and V2.6 Flash in the model picker
+Both models show up alongside GPT-4o, Claude, and friends in Copilot Chat's model selector. 1M-token total context on both. Switch models mid-chat without losing history.
 
-### Prompt Caching with Full Feedback Loop
-Most "compatible" extensions blindly forward API responses. This one **closes the loop**: it reads `prompt_tokens_details.cached_tokens` from each response and feeds it back to the API on the next request, ensuring MiMo's server-side prompt cache stays warm across multi-turn conversations. The result — dramatically lower costs and latency on long agent sessions.
-
-Real-world cache performance (from actual usage logs):
-
-```
-[02:10:37.592] tokens: prompt=14973 completion=130 | cache: hit=12288 rate=82% | reasoning=83 | chars/tok=3.17
-[02:10:43.595] tokens: prompt=15179 completion=230 | cache: hit=14912 rate=98% | reasoning=111 | chars/tok=2.58
-[02:10:48.067] tokens: prompt=17110 completion=245 | cache: hit=15168 rate=89% | reasoning=42 | chars/tok=2.23
-[02:10:53.388] tokens: prompt=17635 completion=174 | cache: hit=17088 rate=97% | reasoning=77 | chars/tok=1.99
-[02:11:06.325] tokens: prompt=18068 completion=521 | cache: hit=17600 rate=97% | reasoning=108 | chars/tok=1.83
-[02:13:50.253] tokens: prompt=19077 completion=57  | cache: hit=18048 rate=95% | reasoning=24 | chars/tok=1.75
-[02:13:53.348] tokens: prompt=19201 completion=142 | cache: hit=19072 rate=99% | reasoning=23 | chars/tok=1.69
-```
-
-Cache hit rates climb to **97–99%** on subsequent turns — meaning the model skips re-reading your entire conversation history and jumps straight to the new content.
+### Prompt cache statistics
+The extension logs cached-token counts from Xiaomi's streaming usage reports. Cache behavior is managed by the API.
 
 ### Thinking Mode with Reasoning Token Visibility
-Full support for MiMo's `reasoning_content`. Watch the model's thought process in real-time as it tackles complex problems. Every response also reports the exact number of **reasoning tokens** consumed — so you know how much "thinking" each answer cost you.
+Full support for MiMo's `reasoning_content`. Watch the model's thought process in real-time as it tackles complex problems. When the API includes usage details, the output channel shows the reported **reasoning token** count — so you know how much "thinking" each answer cost you.
 
-### Vision Support (MiMo V2.5)
-Drop a screenshot or UI mockup into chat and V2.5 will analyze it directly. Perfect for understanding code screenshots, design specs, and visual debugging.
+### Image input
+Attach a screenshot or UI mockup with Pro or Flash. The Copilot integration passes through images, not audio or video.
 
 ### Inherits Every Copilot Capability
 Because this plugs into Copilot's native provider API, you get the full stack for free:
@@ -81,25 +67,29 @@ Pure VS Code API + Node.js built-ins. No Python, no Docker, no local proxy serve
 1. Install from the VS Code Marketplace
 2. Run **MiMo: Set API Key** from the Command Palette (`Ctrl+Shift+P`)
 3. Paste your API key
-4. Open Copilot Chat, click the model picker, pick **MiMo V2.5 Pro** or **MiMo V2.5**
+4. Open Copilot Chat, click the model picker, pick **MiMo V2.6 Pro** or **MiMo V2.6 Flash**
 5. That's it — chat away
 
 ## Models
 
 | Model | Best For | Vision |
 |---|---|---|
-| **MiMo V2.5 Pro** | Complex refactors, agent tasks, deep reasoning, algorithm design | ❌ |
-| **MiMo V2.5** | Fast everyday coding, quick edits, image analysis, UI understanding | ✅ |
+| **MiMo V2.6 Pro** | Complex refactors, agent tasks, deep reasoning, algorithm design | ✅ |
+| **MiMo V2.6 Flash** | Fast everyday coding, quick edits, image analysis, UI understanding | ✅ |
 
-Both support thinking mode, tool calling, and 917K token context.
+Both support thinking mode, tool calling, and 1M-token total context.
+
+## Upgrading from V2.5
+
+Xiaomi retired the V2.5 chat API IDs. Reselect **MiMo V2.6 Pro** or **MiMo V2.6 Flash** in Copilot Chat after upgrading. Your saved API key and region are unchanged. If you use a compatible third-party endpoint, move custom override keys from `mimo-v2.5-pro` to `mimo-v2.6-pro`, and from `mimo-v2.5` to `mimo-v2.6-flash`. The old keys still work for custom values unless the corresponding new key is set.
 
 ## Settings
 
 | Setting | Default | Description |
 |---|---|---|
 | `mimo-copilot.baseUrl` | `https://api.xiaomimimo.com/v1` | API endpoint — select a preset or enter a custom URL |
-| `mimo-copilot.maxTokens` | `0` | Max output tokens (`0` = API default, capped at 131072). Useful for cost control |
-| `mimo-copilot.modelIdOverrides` | `{...}` | Override API model IDs — only needed for compatible third-party APIs |
+| `mimo-copilot.maxTokens` | `0` | Max output tokens (`0` = API default; positive values capped at 131072). Useful for cost control |
+| `mimo-copilot.modelIdOverrides` | `{}` | Override API model IDs — only needed for compatible third-party APIs |
 
 ## Commands
 

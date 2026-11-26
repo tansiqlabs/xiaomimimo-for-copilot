@@ -143,11 +143,6 @@ export class MiMoChatProvider implements vscode.LanguageModelChatProvider {
 		const isThinkingModel = modelDef?.capabilities.thinking ?? false;
 		const maxTokens = getMaxTokens();
 
-		// Heuristic: detect conversation start to clear stale cache.
-		if (messages.length <= 2) {
-			pruneReasoningCache(this.reasoningCache, true);
-		}
-
 		// Strip images for models that don't support vision
 		const resolvedMessages = stripImagesIfNeeded(messages, modelDef);
 		const mimoMessages = convertMessages(resolvedMessages, isThinkingModel, this.reasoningCache);
@@ -156,8 +151,6 @@ export class MiMoChatProvider implements vscode.LanguageModelChatProvider {
 		const totalRequestChars = countMessageChars(mimoMessages);
 
 		let accumulatedReasoning = '';
-		const pendingToolCallIds: string[] = [];
-		let responseMessageId: string | undefined;
 
 		return new Promise<void>((resolve, reject) => {
 			client.streamChatCompletion(
@@ -167,7 +160,7 @@ export class MiMoChatProvider implements vscode.LanguageModelChatProvider {
 					stream: true,
 					tools,
 					tool_choice: tools && tools.length > 0 ? 'auto' : undefined,
-					max_tokens: maxTokens,
+					max_completion_tokens: maxTokens,
 				},
 				{
 					onContent: (content: string) => {
@@ -189,8 +182,6 @@ export class MiMoChatProvider implements vscode.LanguageModelChatProvider {
 					},
 
 					onToolCall: (toolCall: MiMoToolCall) => {
-						pendingToolCallIds.push(toolCall.id);
-
 						// Cache reasoning keyed by tool_call ID
 						if (isThinkingModel && accumulatedReasoning) {
 							this.reasoningCache.set(toolCall.id, {
@@ -216,16 +207,7 @@ export class MiMoChatProvider implements vscode.LanguageModelChatProvider {
 					},
 
 					onDone: () => {
-						// Cache reasoning for the final response (non-tool-call case).
-						if (isThinkingModel && accumulatedReasoning && pendingToolCallIds.length === 0) {
-							responseMessageId = `resp_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-							this.reasoningCache.set(responseMessageId, {
-								text: accumulatedReasoning,
-								timestamp: Date.now(),
-							});
-						}
-
-						pruneReasoningCache(this.reasoningCache, false);
+						pruneReasoningCache(this.reasoningCache);
 						resolve();
 					},
 
@@ -248,13 +230,11 @@ export class MiMoChatProvider implements vscode.LanguageModelChatProvider {
 								` | chars/tok=${this.charsPerToken.toFixed(2)}`,
 						);
 
-					// Report token usage to VS Code so the context window widget can render.
-					// Uses the same LanguageModelDataPart + 'usage' mime convention as
-					// Copilot's own BYOK providers (Anthropic, Gemini).
-					progress.report(
-						vscode.LanguageModelDataPart.json(usage, 'usage'),
-					);
-				},
+						// Report token usage to VS Code so the context window widget can render.
+						// Uses the same LanguageModelDataPart + 'usage' mime convention as
+						// Copilot's own BYOK providers (Anthropic, Gemini).
+						progress.report(vscode.LanguageModelDataPart.json(usage, 'usage'));
+					},
 				},
 				token,
 			);

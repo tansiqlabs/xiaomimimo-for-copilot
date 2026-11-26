@@ -36,27 +36,28 @@ export const MAX_CACHE_SIZE = 200;
 // ---- Model registry ----
 
 /** Available MiMo models exposed through the language model provider. */
+// Reserve the 128 Ki output budget within the 1 Mi token context.
 export const MODELS: ModelDefinition[] = [
 	{
-		id: 'mimo-v2.5-pro',
-		name: 'MiMo V2.5 Pro',
+		id: 'mimo-v2.6-pro',
+		name: 'MiMo V2.6 Pro',
 		family: 'mimo',
-		version: 'v2.5',
-		detail: 'Most capable reasoning model',
+		version: 'v2.6',
+		detail: 'Most capable reasoning model with vision',
 		maxInputTokens: 917504,
 		maxOutputTokens: 131072,
 		capabilities: {
 			toolCalling: true,
-			imageInput: false,
+			imageInput: true,
 			thinking: true,
 		},
 		requiresThinkingParam: false,
 	},
 	{
-		id: 'mimo-v2.5',
-		name: 'MiMo V2.5',
+		id: 'mimo-v2.6-flash',
+		name: 'MiMo V2.6 Flash',
 		family: 'mimo',
-		version: 'v2.5',
+		version: 'v2.6',
 		detail: 'Fast model with vision support',
 		maxInputTokens: 917504,
 		maxOutputTokens: 131072,

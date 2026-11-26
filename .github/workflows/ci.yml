@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '24'
       - run: npm ci
-      - run: npm run compile
+      - run: npm test
       - run: mkdir -p dist && npm run package
       - uses: actions/upload-artifact@v7
         with:

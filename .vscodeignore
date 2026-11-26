@@ -19,3 +19,5 @@ package-lock.json
 !.env.example
 vscode.proposed.languageModelThinkingPart.d.ts
 
+
+test/**
